@@ -1,9 +1,19 @@
 {
   "users": [
     {
-      "id": "73fa4724-c8b7-4280-b073-650aa942a83d",
-      "name": "Karine",
-      "email": "paulo@paulo"
+      "id": "c748202b-f44a-4c6b-8ab8-d2621b892f87",
+      "name": "Razel",
+      "email": "razel@razel"
+    },
+    {
+      "id": "1eb502d3-bd92-41bb-92b6-3557a1b8e3c4",
+      "name": "Otty",
+      "email": "otty_a_egirl@otty.com"
+    },
+    {
+      "id": "1926a525-8dfa-48ee-9784-9790e80dcbcd",
+      "name": "Agatha",
+      "email": "agatha@agatha"
     }
   ]
 }
