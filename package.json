@@ -9,5 +9,8 @@
     "test": "echo\"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "Paulo"
+  "author": "Paulo",
+  "dependencies": {
+    "n": "^9.0.1"
+  }
 }

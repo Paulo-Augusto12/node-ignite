@@ -1,41 +1,51 @@
-import http from 'node:http'
+import http from "node:http";
+import { Database } from "./database.js";
 
-const users = []
+// const users = [];
+
+const database = new Database()
 
 const server = http.createServer(async (req, res) => {
+  const { method, url } = req;
 
-    const { method, url } = req
-
-    const buffers = []
+  const buffers = [];
 
   for await (const chunk of req) {
-    buffers.push(chunk)
+    buffers.push(chunk);
   }
 
   try {
-    req.body = JSON.parse(Buffer.concat(buffers).toString())
+    req.body = JSON.parse(Buffer.concat(buffers).toString());
   } catch {
-    req.body = null
+    req.body = null;
   }
+
+  if (method === "GET" && url === "/users") {
+
+    const users = database.select('users')
+    return res
+      .setHeader("Content-type", "application/json")
+      .writeHead(200)
+      .end(JSON.stringify(users));
+  }
+
+  if (method === "POST" && url === "/users") {
+    const { name, email } = req.body
+
+    const id = Math.random() * 10 * 10 + 1;
     
-    if(method === 'GET' && url === '/users'){
-        return res
-        .setHeader('Content-type', 'application/json')
-        .writeHead(200)
-        .end( JSON.stringify(users))
-    }
+    const user = {
+      id,
+      name,
+      email,
+    };
 
-    if(method === 'POST' && url === '/users'){
+    database.insert('users', user)
 
-        const { name, email } = req.body
-        users.push({
-            id: 1,
-            name,
-            email,
-        })
-        return res.writeHead(201).end()
-    }
-    return res.writeHead(404).end('ERROR: Caminho não encontrado !')
-})
+    
+    return res.writeHead(201).end();
+  }
+  return res.writeHead(404).end("ERROR: Caminho não encontrado !");
+});
 
-server.listen(3333)
+server.listen(3333);
