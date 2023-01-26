@@ -6,7 +6,7 @@ const database = new Database();
 export const routes = [
   {
     method: "GET",
-    url: buildRoutePath("/users"),
+    path: buildRoutePath("/users"),
     handler: (req, res) => {
       const users = database.select("users");
       return res.end(JSON.stringify(users));
@@ -14,7 +14,7 @@ export const routes = [
   },
   {
     method: "POST",
-    url: buildRoutePath("/users"),
+    path: buildRoutePath("/users"),
     handler: (req, res) => {
       const { name, email } = req.body;
 
@@ -32,7 +32,7 @@ export const routes = [
   },
   {
     method: 'DELETE',
-    url:buildRoutePath("/users/:id"),
+    path: buildRoutePath("/users/:id"),
     handler: (req, res) => {
       return res.end()
     }
