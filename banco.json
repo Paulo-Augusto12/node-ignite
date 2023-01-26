@@ -1,1 +1,9 @@
-{"users":[{"id":"73fa4724-c8b7-4280-b073-650aa942a83d","name":"Karine","email":"paulo@paulo"},{"id":"fcc10e5c-bb0a-447a-b76a-4767b73f677d","name":"Karine","email":"paulo@paulo"}]}
+{
+  "users": [
+    {
+      "id": "73fa4724-c8b7-4280-b073-650aa942a83d",
+      "name": "Karine",
+      "email": "paulo@paulo"
+    }
+  ]
+}
