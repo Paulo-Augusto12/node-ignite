@@ -1,50 +1,20 @@
 import http from "node:http";
-import { Database } from "./database.js";
 
-import { randomUUID } from 'node:crypto'
+import { json } from '../middlewares/json.js'
+import { routes } from "./routes.js";
 
-// const users = [];
-
-const database = new Database()
 
 const server = http.createServer(async (req, res) => {
   const { method, url } = req;
 
-  const buffers = [];
+  await json(req, res)
 
-  for await (const chunk of req) {
-    buffers.push(chunk);
-  }
-
-  try {
-    req.body = JSON.parse(Buffer.concat(buffers).toString());
-  } catch {
-    req.body = null;
-  }
-
-  if (method === "GET" && url === "/users") {
-
-    const users = database.select('users')
-    return res
-      .setHeader("Content-type", "application/json")
-      .writeHead(200)
-      .end(JSON.stringify(users));
-  }
-
-  if (method === "POST" && url === "/users") {
-    const { name, email } = req.body
-    
-    const id = randomUUID()
-    const user = {
-      id,
-      name,
-      email,
-    };
-
-    database.insert('users', user)
-
-    
-    return res.writeHead(201).end();
+  const route = routes.find(route => {
+    return route.method === method && route.url === url
+  })
+  
+  if(route){
+    return route.handler(req, res)
   }
   return res.writeHead(404).end("ERROR: Caminho não encontrado !");
 });
