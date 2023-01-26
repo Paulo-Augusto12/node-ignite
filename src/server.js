@@ -1,6 +1,8 @@
 import http from "node:http";
 import { Database } from "./database.js";
 
+import { randomUUID } from 'node:crypto'
+
 // const users = [];
 
 const database = new Database()
@@ -31,9 +33,8 @@ const server = http.createServer(async (req, res) => {
 
   if (method === "POST" && url === "/users") {
     const { name, email } = req.body
-
-    const id = Math.random() * 10 * 10 + 1;
     
+    const id = randomUUID()
     const user = {
       id,
       name,
